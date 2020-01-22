@@ -9,14 +9,21 @@ const data = require('./data.js')
 
 const Game = class Game {
   constructor(options) {
-    log('Im in the game constructor!', options)
+
+    // require required parameters
+    if (!options.width || !options.height || !options.x || !options.y) {
+      log(data.instructions)
+      process.exit()
+    }
+
+    debug('Im in the game constructor!', options)
+
     let { width, height, x, y } = options
     this.directions = ['north', 'east', 'south', 'west']
     this.setupGameArea(width, height, x, y)
   }
 
   start() {
-    log('Starting game!')
     log(data.controls)
     this.outputGameBoard()
   }
@@ -29,7 +36,7 @@ const Game = class Game {
   }
 
   /**
-   * Change orientation
+   * Change orientation of the object
    * TODO: implement actual support for multiple steps
    * @param {int} steps  
    */
@@ -40,6 +47,10 @@ const Game = class Game {
     debug('Direction:', this.directions[this.direction])
   }
 
+  /**
+   * Move the object n step(s) according to it'd direction
+   * @param {number} [step=1] Number of stes
+   */
   forward(step = 1) {
     switch (this.direction) {
       case 0: this.position[0] -= step; break; // north
@@ -73,6 +84,12 @@ const Game = class Game {
     this.outputCurrentLocation()
   }
 
+  /**
+   * Determine if the object is off board. Current implementation is 
+   * a simple edge-detection for a rectangle (x*y) shape. This
+   * could easily be modified to test for an arbitrary figure,
+   * by storing the shape in a matrix of x/y coordinates. 
+   */
   isOffBoard() {
     let [x, y] = this.position
 
@@ -81,6 +98,9 @@ const Game = class Game {
     )
   }
 
+  /**
+   * Output the current location of the object on the game board
+   */
   outputCurrentLocation() {
     let [x, y] = this.position
     console.log('Object is at location:', [x, y])
@@ -93,10 +113,16 @@ const Game = class Game {
     this.outputGameBoard()
   }
 
+  /**
+   * Output a graphical representation of the current board state to
+   * stdout. This method could easily be modified to display a
+   * figure of arbitrary shape [...]
+   */
   outputGameBoard() {
     let out = ''
     let divider = ' +'
 
+    // compute a divider
     for (let y = 0; y < this.width; ++y) { divider += '---+' }
 
     for (let x = 0; x < this.height; ++x) {
@@ -111,7 +137,7 @@ const Game = class Game {
 
     out += "\n" + divider + "\n"
 
-    write(out)
+    debug(out)
   }
 
 }

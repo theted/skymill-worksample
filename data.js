@@ -1,4 +1,5 @@
-const instructions = 'Hello!'
+const instructions = `Game game!
+Usage: npm start [width] [height] [x] [y]`
 const controls = `0 - Exit Game
 1 - Move forward
 2 - Move backward
