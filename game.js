@@ -5,6 +5,7 @@
 const log = console.log
 const debug = require('debug')('app')
 const write = console.log // process.stdout.write
+const data = require('./data.js')
 
 const Game = class Game {
   constructor(options) {
@@ -16,6 +17,7 @@ const Game = class Game {
 
   start() {
     log('Starting game!')
+    log(data.controls)
     this.outputGameBoard()
   }
 
@@ -40,9 +42,9 @@ const Game = class Game {
 
   forward() {
     switch (this.direction) {
-      case 0: this.position[0] += 1; break; // north
+      case 0: this.position[0] -= 1; break; // north
       case 1: this.position[1] += 1; break; // east
-      case 2: this.position[0] -= 1; break; // south
+      case 2: this.position[0] += 1; break; // south
       case 3: this.position[1] -= 1; break; // west
     }
   }
@@ -80,7 +82,7 @@ const Game = class Game {
     let [x, y] = this.position
 
     return (
-      x < 0 || y < 0 || x > this.width || y > this.height
+      x < 0 || y < 0 || x > this.height - 1 || y > this.width - 1
     )
   }
 
@@ -90,7 +92,7 @@ const Game = class Game {
 
     if (this.isOffBoard()) {
       console.log('! Fell of the table @', [x, y])
-      // process.exit(0)
+      process.exit(0)
     }
 
     this.outputGameBoard()
