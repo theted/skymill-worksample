@@ -40,22 +40,17 @@ const Game = class Game {
     debug('Direction:', this.directions[this.direction])
   }
 
-  forward() {
+  forward(step = 1) {
     switch (this.direction) {
-      case 0: this.position[0] -= 1; break; // north
-      case 1: this.position[1] += 1; break; // east
-      case 2: this.position[0] += 1; break; // south
-      case 3: this.position[1] -= 1; break; // west
+      case 0: this.position[0] -= step; break; // north
+      case 1: this.position[1] += step; break; // east
+      case 2: this.position[0] += step; break; // south
+      case 3: this.position[1] -= step; break; // west
     }
   }
 
-  // TODO: fix this ugly logic!
   backward() {
-    this.changeDirection()
-    this.changeDirection()
-    this.forward()
-    this.changeDirection()
-    this.changeDirection()
+    this.forward(-1)
   }
 
   exit() {
