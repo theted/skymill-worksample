@@ -3,12 +3,12 @@ A simple console-based game. The only rule is to stay within the box!
 
 ### Starting
 Start the game by supplying commands
-```
+```sh
 npm start [width] [height] [x] [y]
 ```
 
 Example
-```
+```sh
 npm start 4 4 1 1
 
  +---+---+---+---+
@@ -21,6 +21,12 @@ npm start 4 4 1 1
  |   |   |   |   |
  +---+---+---+---+
 
+```
+
+### Starting in dev mode
+Dev mode, containing verbose output is also available by
+```sh
+npm run devstart 5 5 1 1
 ```
 
 ### Game controlls

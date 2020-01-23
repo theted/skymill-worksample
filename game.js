@@ -57,6 +57,7 @@ const Game = class Game {
       case 1: this.position[1] += step; break; // east
       case 2: this.position[0] += step; break; // south
       case 3: this.position[1] -= step; break; // west
+      // .. we could also implement diagonal movement by changing x/y coordinates simultaneausly
     }
   }
 
